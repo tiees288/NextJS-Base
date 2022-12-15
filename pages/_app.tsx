@@ -6,6 +6,13 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { RecoilRoot } from "recoil";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -18,6 +25,8 @@ type AppPropsWithLayout = AppProps & {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
   const [isLoading, setLoading] = useState(false)
+  const queryClient = new QueryClient()
+
 
   useEffect(() => {
     router.events.on('routeChangeStart', (() => setLoading(true)))
@@ -32,12 +41,22 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }, [])
 
   const getLayout = Component.getLayout ?? ((page) => page)
+  const client = new QueryClient(
+    {
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+        },
+      },
+    })
 
   return getLayout(
     <>
       <RecoilRoot>
-        {/* <LoadingScene isLoading={isLoading} /> */}
-        <Component {...pageProps} />
+        <QueryClientProvider client={client}>
+          {/* <LoadingScene isLoading={isLoading} /> */}
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </RecoilRoot>
     </>
   )
