@@ -157,6 +157,8 @@ export default function Users() {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const [search, setSearch] = useState<User>()
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof User,
@@ -181,8 +183,6 @@ export default function Users() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - (userData?.length ?? 0)) : 0;
-
-  console.log(getComparator(order, 'id'))
 
 
   const handleSubmit = async () => {
@@ -213,29 +213,30 @@ export default function Users() {
           <TableBody>
             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.sort(getComparator(order, orderBy)).slice() */}
-            {userData?.sort(getComparator(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => {
-                // const isItemSelected = isSelected(row.name);
-                const labelId = `enhanced-table-checkbox-${index}`;
+            {
+              // @ts-ignore
+              userData?.sort(getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  // const isItemSelected = isSelected(row.name);
 
-                return (
-                  <TableRow
-                    hover
-                    // onClick={(event) => handleClick(event, row.name)}
-                    role="checkbox"
-                    // aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.name}
-                  // selected={isItemSelected}
-                  >
-                    <TableCell align="center">{row.id}</TableCell>
-                    <TableCell align="center">{row.name}</TableCell>
-                    <TableCell align="center">{row.PhoneNumber}</TableCell>
-                    <TableCell align="center">{row?.createdAt?.toString()}</TableCell>
-                  </TableRow>
-                );
-              })}
+                  return (
+                    <TableRow
+                      hover
+                      // onClick={(event) => handleClick(event, row.name)}
+                      role="checkbox"
+                      // aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.name}
+                    // selected={isItemSelected}
+                    >
+                      <TableCell align="center">{row.id}</TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
+                      <TableCell align="center">{row.PhoneNumber}</TableCell>
+                      <TableCell align="center">{row?.createdAt?.toString()}</TableCell>
+                    </TableRow>
+                  );
+                })}
             {emptyRows > 0 && (
               <TableRow
                 style={{
@@ -247,24 +248,27 @@ export default function Users() {
             )}
           </TableBody>
         </Table>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={userData?.length ?? 0}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        <div style={{
+          display: 'flexx',
+          flexDirection: 'row',
+          justifyContent: 'center'
+        }}>
+          <TablePagination
+            style={{
+              justifyContent: 'center',
+              display: 'flex'
+            }}
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={userData?.length ?? 0}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </div>
       </div>
       <ul>
-        {
-          userData?.map((user: User) => {
-            return (
-              <li key={user.id}>{`${user.id} ${user.name} ${user.PhoneNumber}`}</li>
-            )
-          })
-        }
         {
           (isLoading || isFetching) &&
           <div>

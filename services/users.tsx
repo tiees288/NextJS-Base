@@ -8,11 +8,9 @@ interface User {
   PhoneNumber: string
 }
 
-const FetchUser = () => {
+const FetchUser = (data?: User) => {
   return useQuery(['UserData', {
-    name: 'Krittawat',
-    surname: 'Boo',
-    age: '25'
+    data
   }],
     async (query) => {
 
