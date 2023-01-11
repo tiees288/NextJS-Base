@@ -26,13 +26,7 @@ export default function Home() {
 
   return (
     <div>
-      <h2>{nameSt}</h2>
-      <button
-        onClick={() => {
-          setName(nameSt + 1)
-        }}
-      >Plus</button>
-      <Link href={'index2'}><div>go to index2</div></Link>
+      Hello page
     </div>
   )
 }

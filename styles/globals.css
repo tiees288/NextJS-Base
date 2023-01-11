@@ -1,0 +1,12 @@
+.RoundBtn {
+     background: linear-gradient(140deg, rgba(24,96,190,1) 0%, rgba(33,104,194,1) 37%, rgba(163,212,255,1) 77%);
+     box-shadow: #2c94da 0px 2px 6px;
+     padding: 10px 15px 10px 20px;
+     width: 100px;
+     border-radius: 20px;
+     color: white;
+     font-weight: bold;
+     cursor: pointer;
+     user-select: none;
+     /* height: 30px; */
+}
