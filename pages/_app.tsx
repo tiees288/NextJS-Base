@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/collapse.css'
 // import '../styles/loader.css'
 import type { ReactElement, ReactNode } from 'react'
 import type { AppProps } from 'next/app'

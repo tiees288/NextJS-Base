@@ -1,0 +1,54 @@
+.btn-expand {
+     position: relative;
+     background-color: rgba(255, 255, 255, 0.667);
+     cursor: pointer;
+     user-select: none;
+}
+
+.sidebar {
+     top: 0;
+     left: 0;
+     bottom: 0;
+     background-color: #f2eeee;
+     position: fixed;
+     display: flex;
+     flex-direction: column;
+     width: 250px;
+}
+
+.sidebar-enter {
+     opacity: 0;
+     width: 0;
+}
+
+.sidebar-enter-active {
+     opacity: 1;
+     width: 250px;
+     transition: ease-in-out 200ms;
+}
+
+.sidebar-exit {
+     opacity: 1;
+     width: 200px;
+     transition: ease-in-out 300ms;
+}
+
+.sidebar-exit-active {
+     opacity: 0;
+     width: 10px;
+     transition: ease-in-out 500ms;
+}
+
+.menuCollapse {
+     cursor: pointer;
+     user-select: none;
+}
+
+.collapse-container {
+     width: 100%;
+     background-color: rgba(255, 255, 255, 0.667);
+}
+
+.collapse-option {
+     display: none;
+}
